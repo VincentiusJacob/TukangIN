@@ -1,0 +1,94 @@
+.choose-role-container {
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    color: #000;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .role-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .logo-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .role-logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+  }
+  
+  .brand-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #c66a00;
+  }
+  
+  .brand-highlight {
+    color: #c66a00;
+  }
+  
+  .choose-title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: bold;
+  }
+  
+  .roles {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .role-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid #c66a00;
+    border-radius: 100%;
+    padding: 1.5rem;
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .role-option.selected {
+    background-color: #c66a00;
+    color: white;
+  }
+  
+  .role-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .role-label {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .next-button {
+    padding: 0.8rem 2rem;
+    background-color: #c66a00;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 60%;
+    max-width: 300px;
+  }
+  
+
+
+

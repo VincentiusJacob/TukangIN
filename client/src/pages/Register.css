@@ -1,0 +1,111 @@
+.register-container {
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    color: #000;
+    padding: 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+  }
+  
+  .brand-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #c66a00;
+  }
+  
+  .brand-highlight {
+    color: #c66a00;
+  }
+  
+  .signup-button {
+    padding: 0.5rem 1.5rem;
+    background: linear-gradient(to right, #f1d6bb, #c66a00);
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .form-wrapper {
+    text-align: center;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .register-form input {
+    padding: 0.8rem 1rem;
+    border-radius: 20px;
+    border: none;
+    background-color: #c66a00;
+    color: white;
+    flex: 1;
+  }
+  
+  .register-form input::placeholder {
+    color: white;
+    opacity: 1;
+  }
+  
+  .register-button {
+    padding: 1rem;
+    background-color: #c66a00;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .spaced-input {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.8rem 1rem;
+    border-radius: 20px;
+    border: none;
+    background-color: #c66a00;
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .form-select {
+    padding: 0.8rem 1rem;
+    border-radius: 20px;
+    border: none;
+    background-color: #c66a00;
+    color: white;
+    font-size: 1rem;
+    appearance: none;
+  }
+  
+  .form-select option {
+    color: black;
+  }
