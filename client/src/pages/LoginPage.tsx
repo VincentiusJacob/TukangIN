@@ -1,5 +1,5 @@
-import React from 'react';
-import './pages/LoginPage.css';
+import React from "react";
+import "./LoginPage.css";
 
 const LoginPage: React.FC = () => {
   return (
@@ -15,7 +15,11 @@ const LoginPage: React.FC = () => {
 
       <main className="login-content">
         <h2>Log in</h2>
-        <input type="email" placeholder="Email Address" className="input-field" />
+        <input
+          type="email"
+          placeholder="Email Address"
+          className="input-field"
+        />
         <input type="password" placeholder="Password" className="input-field" />
         <button className="login-btn">Log in</button>
       </main>

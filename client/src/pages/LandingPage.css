@@ -1,0 +1,129 @@
+.landing-page {
+  background-color: white;
+  width: 100%;
+}
+
+/* ---------------- FIRST SECTION ----------------- */
+
+/* -------- HEADER ------- */
+.first_section {
+  width: 100%;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5em 0 3em;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-left > h1 {
+  color: #f58c01;
+  font-size: 3em;
+  font-family: "poppins";
+}
+
+#bookNowHeader {
+  padding: 1.5em 2.5em;
+  border: none;
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* ----------- CONTENT --------- */
+
+.content {
+  display: flex;
+  align-items: center;
+  padding: 4em;
+  justify-content: space-between;
+}
+
+.content > img {
+  width: 800px;
+  height: 500px;
+}
+
+.content_text {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  margin-left: 2em;
+}
+
+.content_text > h2 {
+  font-size: 5em;
+}
+
+.content_text > h2 > strong {
+  color: #f58c01;
+}
+
+.content_text > span {
+  font-weight: 500;
+  font-size: 2em;
+}
+
+#bookNowSectionOne {
+  padding: 1em 2.5em;
+  border: none;
+  background-color: #f58c01;
+  color: white;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/* ---------------- SECOND SECTION ----------------- */
+
+.second_section {
+  width: 100%;
+  background-color: #f58c01;
+  padding: 3em 7em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.second_section_text {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.second_section_text > h2 {
+  font-size: 3em;
+  color: white;
+}
+
+.second_section_text > span {
+  color: white;
+  font-size: 18px;
+}
+
+#learn-more {
+  padding: 1em 2em;
+  color: white;
+  background: none;
+  border: 2px solid white;
+  max-width: 50%;
+}
+
+.second_section > img {
+  width: 500px;
+  height: 500px;
+  border: 1px solid white;
+}
