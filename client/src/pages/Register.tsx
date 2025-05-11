@@ -1,46 +1,102 @@
-import React from 'react';
-import './Register.css';
-import Logo from '../assets/tukangin.png';
+// import React from "react";
+import "./ServicePage.css";
+import Logo from "../assets/tukangin.png";
 
-const Register: React.FC = () => {
+const ServicePage = () => {
   return (
-    <div className="register-container">
+    <div className="service-container">
+      {/* Header */}
       <header className="header">
-        <div className="logo-container">
-          <img src={Logo} alt="TukangIN Logo" className="logo-image" />
-          <span className="brand-text">Tukang<span className="brand-highlight">IN</span></span>
+        <div className="logo">
+          <img src={Logo} alt="TukangIN Logo" className="logo-img" />
         </div>
-        <button className="signup-button">Sign up</button>
+        <div className="profile-icons">
+          <div className="notif">V</div>
+          <div className="avatar">
+            <img src="https://via.placeholder.com/35" alt="Profile" />
+          </div>
+        </div>
       </header>
 
-      <main className="form-wrapper">
-        <h2>Get Started Now</h2>
-        <form className="register-form">
-          <div className="row">
-            <input type="text" placeholder="Full Name" />
-            <input type="text" placeholder="Phone Number" />
-          </div>
-          <input type="email" placeholder="Email Address" />
-          <input type="text" placeholder="Home Address" />
-          <div className="row">
-            <input type="password" placeholder="Password" />
-            <input type="password" placeholder="Confirm Password" />
-          </div>
+      {/* Riwayat */}
+      <section className="section">
+        <h2 className="section-title">Riwayat Pesanan</h2>
+        <div className="history-placeholder" />
+      </section>
 
-          {/* New Section */}
-          <input type="date" placeholder="Date of Birth" className="spaced-input" />
-          <select className="form-select spaced-input">
-            <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
+      {/* Paling sering dipesan */}
+      <section className="section">
+        <h2 className="section-title">Paling sering dipesan</h2>
+        <div className="card-row">
+          <div className="card" />
+          <div className="card" />
+          <div className="card" />
+        </div>
+      </section>
 
-          <button className="register-button" type="submit">Register</button>
-        </form>
-      </main>
+      {/* Kategori */}
+      <section className="section">
+        <h2 className="section-title">Kategori</h2>
+        <div className="category-row">
+          {[...Array(5)].map((_, i) => (
+            <div className="category-card" key={i}>
+              <div className="category-thumbnail" />
+              <div className="category-label" />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Bottom Block */}
+      <div className="bottom-block" />
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-logo">
+          <img src={Logo} alt="TukangIN Footer Logo" className="footer-logo-img" />
+        </div>
+
+        <div className="footer-sections">
+          <div className="footer-section">
+            <h4>Company</h4>
+            <ul>
+              <li>About Us</li>
+              <li>Our Services</li>
+              <li>Privacy Policy</li>
+              <li>Our Team</li>
+            </ul>
+          </div>
+          <div className="footer-section">
+            <h4>Help</h4>
+            <ul>
+              <li>Contact Us</li>
+              <li>Help Center</li>
+              <li>FAQ</li>
+              <li>Report an issue</li>
+            </ul>
+          </div>
+          <div className="footer-section address">
+            <h4>Follow us</h4>
+            <div className="social-icons">
+              <span>📘</span>
+              <span>𝕏</span>
+              <span>📸</span>
+              <span>▶️</span>
+            </div>
+            <p>
+              Jl. Melati Indah No. 27, RT 04 / RW 09 <br />
+              Kelurahan Sukamaju, Kecamatan Serpong <br />
+              Kota Tangerang Selatan, Banten 15310
+            </p>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          © 2025 TukangIN. All rights reserved.
+        </div>
+      </footer>
     </div>
   );
 };
 
-export default Register;
+export default ServicePage;
