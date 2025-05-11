@@ -1,6 +1,10 @@
 import "./LandingPage.css";
 import Logo from "../assets/tukangin.png";
 import Mascot from "../assets/tukangin-mascot.png";
+import VerifiedWorkers from "../assets/verified_workers.png";
+import SafeInsured from "../assets/safe_insured.png";
+import FastOnTime from "../assets/fast_ontime.png";
+import Footer from "../components/Footer";
 
 const LandingPage: React.FC = () => {
   return (
@@ -41,6 +45,69 @@ const LandingPage: React.FC = () => {
         </div>
         <img src="" alt="About TukangIN" />
       </div>
+
+      <div className="third_section">
+        <h2> Why TukangIN </h2>
+        <div className="third_section_why">
+          <div className="reason">
+            <img src={VerifiedWorkers} alt="Verified Workers" />
+            <h4> Verified Workers </h4>
+          </div>
+          <div className="reason">
+            <img src={FastOnTime} alt="Fast & On Time" />
+            <h4>Fast & On-Time </h4>
+          </div>
+          <div className="reason">
+            <img src={SafeInsured} alt="Safe & Insured" />
+            <h4> Safe & Insured </h4>
+          </div>
+        </div>
+      </div>
+
+      <div className="fourth_section">
+        <h2> Our Services </h2>
+        <div className="fourth_section_services">
+          <div className="fourth_section_service">
+            <img src="" />
+            <h4> Service 1 </h4>
+            <span> Gunakan layanan kami untuk Service 1 </span>
+            <button> Read More For Details </button>
+          </div>
+          <div className="fourth_section_service">
+            <img src="" />
+            <h4> Service 1 </h4>
+            <span> Gunakan layanan kami untuk Service 1 </span>
+            <button> Read More For Details </button>
+          </div>
+          <div className="fourth_section_service">
+            <img src="" />
+            <h4> Service 1 </h4>
+            <span> Gunakan layanan kami untuk Service 1 </span>
+            <button> Read More For Details </button>
+          </div>
+          <div className="fourth_section_service">
+            <img src="" />
+            <h4> Service 1 </h4>
+            <span> Gunakan layanan kami untuk Service 1 </span>
+            <button> Read More For Details </button>
+          </div>
+          <div className="fourth_section_service">
+            <img src="" />
+            <h4> Service 1 </h4>
+            <span> Gunakan layanan kami untuk Service 1 </span>
+            <button> Read More For Details </button>
+          </div>
+          <div className="fourth_section_service">
+            <img src="" />
+            <h4> Service 1 </h4>
+            <span> Gunakan layanan kami untuk Service 1 </span>
+            <button> Read More For Details </button>
+          </div>
+        </div>
+        <button id="explore-more-service"> Explore More </button>
+      </div>
+
+      <Footer />
     </div>
   );
 };
