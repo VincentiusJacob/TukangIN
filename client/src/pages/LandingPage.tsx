@@ -38,8 +38,18 @@ const LandingPage: React.FC = () => {
           <h2>About Us</h2>
           <span>
             {" "}
-            We offer a wide range of services to meet your needs. Our workers
-            are trained and experienced, ensuring quality and reliability.
+            At TukangIN, we're dedicated to making your life easier by
+            connecting you with skilled and reliable service professionals—right
+            when you need them. Whether it's fixing a leaky faucet, installing
+            air conditioning, or handling a full home renovation, we’ve got the
+            right person for the job. We offer a wide range of household and
+            maintenance services tailored to your daily needs. All of our
+            workers are carefully selected, trained, and experienced to ensure
+            high-quality workmanship, professionalism, and trust. Your comfort,
+            safety, and satisfaction are our top priorities. No more wasting
+            time searching for a trustworthy handyman. With just a few clicks,
+            TukangIN brings dependable help to your doorstep—on time, every
+            time.
           </span>
           <button id="learn-more"> Learn More </button>
         </div>

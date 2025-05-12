@@ -1,16 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import LandingPage from "./pages/LandingPage";
-import ChooseRole from './pages/ChooseRole';
-import ServicePage from './pages/ServicePage';
-import RegisterTukang from './pages/RegisterTukang';
+import ChooseRole from "./pages/ChooseRole";
+import ServicePage from "./pages/ServicePage";
+import RegisterTukang from "./pages/RegisterTukang";
 import Profile from "./pages/Profile";
-
-
-
 
 import "./App.css";
 import RegisterCustomer from "./pages/RegisterCustomer";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -23,6 +21,7 @@ function App() {
         <Route path="/registercustomer" element={<RegisterCustomer />} />
         <Route path="/service" element={<ServicePage />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/home" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
   );

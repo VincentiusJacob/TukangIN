@@ -112,6 +112,7 @@
 .second_section_text > span {
   color: white;
   font-size: 18px;
+  max-width: 50%;
 }
 
 #learn-more {
