@@ -7,14 +7,82 @@ import dayjs from "dayjs";
 import Footer from "../components/Footer";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import "./HomePage.css";
+import { useState } from "react";
 
 const HomePage: React.FC = () => {
+  const [selectedKebutuhan, setSelectedKebutuhan] =
+    useState("Apa Kebutuhanmu?");
+  const [selectedDomisili, setSelectedDomisili] = useState("Domisili Kamu?");
+  const [showKebutuhan, setShowKebutuhan] = useState(false);
+  const [showDomisili, setShowDomisili] = useState(false);
+  const [selectedDomisiliRankTukang, setSelectedDomisiliRankTukang] =
+    useState("All");
+
+  const dummyData = [
+    {
+      id: 1,
+      nama: "Budi Santoso",
+      rating: 4.9,
+      selesai: 124,
+      domisili: "Jakarta",
+    },
+    {
+      id: 2,
+      nama: "Agus Wijaya",
+      rating: 4.8,
+      selesai: 117,
+      domisili: "Bandung",
+    },
+    {
+      id: 3,
+      nama: "Rahmat Hidayat",
+      rating: 4.7,
+      selesai: 109,
+      domisili: "Surabaya",
+    },
+    {
+      id: 4,
+      nama: "Joko Prasetyo",
+      rating: 4.6,
+      selesai: 96,
+      domisili: "Bekasi",
+    },
+    {
+      id: 5,
+      nama: "Toni Saputra",
+      rating: 4.5,
+      selesai: 89,
+      domisili: "Denpasar",
+    },
+    {
+      id: 6,
+      nama: "Timothy Ronald",
+      rating: 4.3,
+      selesai: 70,
+      domisili: "Jakarta",
+    },
+  ];
+
+  const filteredData =
+    selectedDomisiliRankTukang === "All"
+      ? dummyData
+      : dummyData.filter(
+          (item) => item.domisili === selectedDomisiliRankTukang
+        );
+
+  const sortedData = [...filteredData].sort((a, b) => b.rating - a.rating);
+
+  const uniqueDomisili = [
+    "All",
+    ...new Set(dummyData.map((item) => item.domisili)),
+  ];
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className="homePage">
         <div className="homePage-header">
           <div className="homePage-header-left">
-            <img src={Logo} alt="TukangIN Logo" />
+            <img src={Logo} id="logo" alt="TukangIN Logo" />
             <h1> TukangIN </h1>
             <div className="searchBar-container">
               <input type="text" id="search-field" placeholder="Search" />
@@ -29,8 +97,11 @@ const HomePage: React.FC = () => {
 
         <div className="homePage-ads">
           <div className="homePage-ads-texts">
-            <span> Promo Mei Ceria </span>
-            <span> Dapatkan diskon hingga 60% </span>
+            <span className="ads-title"> Promo Mei Ceria </span>
+            <span className="ads-description">
+              {" "}
+              Dapatkan diskon hingga 60%{" "}
+            </span>
             <div className="slogan">
               <span>
                 {" "}
@@ -50,42 +121,104 @@ const HomePage: React.FC = () => {
           <h2> Pesen Tukang </h2>
 
           <div className="order-tukang-fields">
-            {/* Ni gw buat yg apa kebutuhanmu dropdown */}
-            <DropdownButton
-              id="dropdown-button-kebutuhan"
-              drop="down-centered"
-              variant="secondary"
-              title={`Apa Kebutuhanmu?`}
-            >
-              <Dropdown.Item eventKey="1">Tukang AC</Dropdown.Item>
-              <Dropdown.Item eventKey="2">Tukang Listrik</Dropdown.Item>
-              <Dropdown.Item eventKey="3">
-                Tukang Bersih-Bersih Rumah
-              </Dropdown.Item>
-              <Dropdown.Item eventKey="4">
-                Tukang Installasi Elektronik
-              </Dropdown.Item>
-            </DropdownButton>
+            <div className="dropdown">
+              <DropdownButton
+                id="dropdown-button-kebutuhan"
+                drop="down-centered"
+                variant="light"
+                show={showKebutuhan}
+                onToggle={() => setShowKebutuhan(!showKebutuhan)}
+                title={selectedKebutuhan}
+              >
+                <Dropdown.Item
+                  onClick={() => {
+                    setSelectedKebutuhan("Tukang AC");
+                    setShowKebutuhan(false);
+                  }}
+                >
+                  Tukang AC
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setSelectedKebutuhan("Tukang Listrik");
+                    setShowKebutuhan(false);
+                  }}
+                >
+                  Tukang Listrik
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setSelectedKebutuhan("Tukang Bersih-Bersih");
+                    setShowKebutuhan(false);
+                  }}
+                >
+                  Tukang Bersih-Bersih
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setSelectedKebutuhan("Tukang Installasi");
+                    setShowKebutuhan(false);
+                  }}
+                >
+                  Tukang Installasi
+                </Dropdown.Item>
+              </DropdownButton>
+            </div>
 
-            {/* Ni buat yang domisili  */}
-            <DropdownButton
-              id="dropdown-button-domisili"
-              drop="down-centered"
-              variant="secondary"
-              title={`Domisili Kamu?`}
-            >
-              <Dropdown.Item eventKey="1">DKI Jakarta</Dropdown.Item>
-              <Dropdown.Item eventKey="2">Bandung, Jawa Barat</Dropdown.Item>
-              <Dropdown.Item eventKey="3">Surabaya, Jawa Timur</Dropdown.Item>
-              <Dropdown.Item eventKey="4">Denpasar, Bali</Dropdown.Item>
-            </DropdownButton>
+            <div className="dropdown">
+              <DropdownButton
+                id="dropdown-button-domisili"
+                drop="down-centered"
+                variant="light"
+                show={showDomisili}
+                onToggle={() => setShowDomisili(!showDomisili)}
+                title={selectedDomisili}
+              >
+                <Dropdown.Item
+                  onClick={() => {
+                    setSelectedDomisili("DKI Jakarta");
+                    setShowDomisili(false);
+                  }}
+                >
+                  DKI Jakarta
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setSelectedDomisili("Bandung, Jawa Barat");
+                    setShowDomisili(false);
+                  }}
+                >
+                  Bandung, Jawa Barat
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setSelectedDomisili("Surabaya, Jawa Timur");
+                    setShowDomisili(false);
+                  }}
+                >
+                  Surabaya, Jawa Timur
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setSelectedDomisili("Denpasar, Bali");
+                    setShowDomisili(false);
+                  }}
+                >
+                  Denpasar, Bali
+                </Dropdown.Item>
+              </DropdownButton>
+            </div>
 
-            {/* ini buat pick date */}
-            <DemoItem label="Desktop variant">
-              <DesktopDatePicker defaultValue={dayjs("2022-04-17")} />
-            </DemoItem>
+            <div>
+              <DemoItem label="">
+                <DesktopDatePicker
+                  defaultValue={dayjs("2022-04-17")}
+                  slotProps={{ textField: { variant: "standard" } }}
+                />
+              </DemoItem>
+            </div>
 
-            <button id="bookBtn"> Book </button>
+            <button id="bookBtn">Book</button>
           </div>
         </div>
 
@@ -113,23 +246,52 @@ const HomePage: React.FC = () => {
         </div>
 
         <div className="popular-services-this-week">
-          <div className="popular-service"></div>
-          <div className="popular-service"></div>
-          <div className="popular-service"></div>
+          <h2> Popular Services This Week </h2>
+          <div className="popular-services">
+            <div className="popular-service"></div>
+            <div className="popular-service"></div>
+            <div className="popular-service"></div>
+          </div>
         </div>
 
         <div className="best-overall-tukang">
-          <table>
+          <h2>🏆 Best Overall Tukang</h2>
+
+          <div className="ranking-controls">
+            <label>Filter Domisili:</label>
+            <select
+              onChange={(e) => setSelectedDomisiliRankTukang(e.target.value)}
+              value={selectedDomisiliRankTukang}
+            >
+              {uniqueDomisili.map((d, i) => (
+                <option key={i} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <table className="ranking-table">
             <thead>
               <tr>
-                <th> No </th>
-                <th> Nama </th>
-                <th> Rating </th>
-                <th> Pekerjaan Selesai </th>
-                <th> Domisili </th>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Rating ⭐</th>
+                <th>Pekerjaan Selesai</th>
+                <th>Domisili</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              {sortedData.slice(0, 10).map((item, index) => (
+                <tr key={item.id} className={index === 0 ? "first-place" : ""}>
+                  <td>{index + 1}</td>
+                  <td>{item.nama}</td>
+                  <td>{item.rating}</td>
+                  <td>{item.selesai}</td>
+                  <td>{item.domisili}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
 
