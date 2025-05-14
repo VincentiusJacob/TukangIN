@@ -5,6 +5,7 @@ import VerifiedWorkers from "../assets/verified_workers.png";
 import SafeInsured from "../assets/safe_insured.png";
 import FastOnTime from "../assets/fast_ontime.png";
 import Footer from "../components/Footer";
+import TukangAC from "../assets/TukangAC.jpeg";
 
 const LandingPage: React.FC = () => {
   return (
@@ -53,7 +54,7 @@ const LandingPage: React.FC = () => {
           </span>
           <button id="learn-more"> Learn More </button>
         </div>
-        <img src="" alt="About TukangIN" />
+        <img src={TukangAC} alt="TukangIN Image" />
       </div>
 
       <div className="third_section">
