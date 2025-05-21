@@ -1,0 +1,84 @@
+.history-page {
+  width: 100%;
+}
+
+/* HEADER */
+.history-header {
+  display: flex;
+  padding: 1em 3em;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 4px 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.history-header-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.history-header-left > h1 {
+  color: #f58c01;
+  font-size: 2.5em;
+}
+
+.searchBar-container {
+  margin-left: 5em;
+}
+
+#search-field {
+  background-color: grey;
+  color: black;
+  padding: 1em 8em 1em 2em;
+  border-radius: 8px;
+}
+
+.history-header > img {
+  border: 1px solid;
+}
+
+.history-header-right {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
+
+/* FIRST SECTION */
+
+.history-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  width: 100%;
+  padding: 3em 10em;
+}
+
+.history-overview-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+}
+
+.history-overview-card {
+  display: flex;
+  padding: 1.3em 0;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  border-bottom: 1px solid;
+}
+
+.history-overview-card-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+}
+
+.history-overview-card-left > h3 {
+  font-size: 1.5em;
+}
+.history-overview-card-left-detail {
+  display: flex;
+  gap: 1em;
+}

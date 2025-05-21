@@ -1,96 +1,92 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #fff;
-}
-
 .register-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  background-color: #fff;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 30px;
-}
-
-.logo {
-  height: 30px;
-}
-
-.logo-text {
-  font-size: 24px;
-  color: #c26700;
-  font-weight: 600;
-  margin-left: 10px;
-  flex-grow: 1;
-}
-
-.signup-button {
-  background: linear-gradient(to right, #e8d7c4, #c26700);
-  color: black;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 15px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 30px;
-}
-
-.form {
+  width: 100%;
+  height: 100vh;
+  background-color: #e3d095;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  justify-content: center;
 }
 
-.row {
+.register-page {
+  width: 100%;
+  max-width: 70%;
+  padding: 3rem;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  background-color: white;
+  font-family: "Arial", sans-serif;
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 2em;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="date"] {
-  flex: 1;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 25px;
-  background-color: #c26700;
-  color: white;
-  font-size: 14px;
+.register-left {
+  width: 50%;
+  height: 100%;
+  padding: 1em;
+  border: 1px solid;
+  border-radius: 10px;
 }
 
-input::placeholder {
-  color: white;
-  opacity: 1;
+.register-right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 2em;
+  justify-content: space-between;
 }
 
-.register-button {
-  background-color: #c26700;
+.register-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+}
+
+.register-content > h2 {
+  font-size: 3em;
+  color: #c86c04;
+}
+
+.register-content-input-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  margin-top: 1em;
+  width: 70%;
+}
+
+.register-input {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+#input-email-register,
+#input-password-register,
+#input-fullname-register,
+#input-phonenumber-register,
+#input-confirmpassword-register {
+  padding: 1em 1.5em;
+  border-radius: 12px;
+  background-color: #eeeeee;
+  border: 0.5px solid #b2c6d5;
+  color: black;
+}
+
+.register-content-buttons {
+  margin-top: 2em;
+  width: 70%;
+}
+
+.register-content-buttons > button {
+  width: 100%;
+  padding: 1em 3em;
+  border-radius: 10px;
+  background-color: #c86c04;
   color: white;
-  border: none;
-  border-radius: 25px;
-  padding: 14px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 10px;
 }

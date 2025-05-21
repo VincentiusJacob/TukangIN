@@ -1,36 +1,67 @@
 import React from "react";
 import "./RegisterTukang.css";
 import Logo from "../assets/tukangin.png";
+import Tukangs from "../assets/tukangs3.png";
 
 const RegisterTukang = () => {
   return (
     <div className="register-container">
-      <div className="header">
-        <img src={Logo} alt="TukangIN Logo" className="logo" />
-        <span className="logo-text">TukangIN</span>
-        <button className="signup-button">Sign up</button>
+      <div className="register-page">
+        <div
+          className="register-left"
+          style={{
+            backgroundImage: `url(${Tukangs})`,
+            backgroundSize: "cover",
+          }}
+        ></div>
+        <div className="register-right">
+          <img src={Logo} alt="TukangIN Logo" width={100} height={100} />
+          <div className="register-content">
+            <h2> Create an account </h2>
+            <div className="register-content-input-fields">
+              <div className="register-input">
+                <span> Full Name </span>
+                <input
+                  type="text"
+                  id="input-fullname-register"
+                  placeholder="John Doe"
+                />
+              </div>
+              <div className="register-input">
+                <span> Phone Number </span>
+                <input
+                  type="number"
+                  id="input-phonenumber-register"
+                  placeholder="81292349765"
+                />
+              </div>
+              <div className="register-input">
+                <span> Email Address </span>
+                <input
+                  type="text"
+                  id="input-email-register"
+                  placeholder="JohnDoe@gmail.com"
+                />
+              </div>
+              <div className="register-input">
+                <span> Password</span>
+                <input type="text" id="input-password-register" />
+              </div>
+              <div className="confirmpassword-input">
+                <span> Confirm Password </span>
+                <input type="text" id="input-confirmpassword-register" />
+              </div>
+            </div>
+            <div className="register-content-buttons">
+              <button className="register-button"> Register</button>
+            </div>
+          </div>
+          <span>
+            {" "}
+            Alread have an account? <a href=""> Login</a>
+          </span>
+        </div>
       </div>
-
-      <h2 className="title">Get Started Now</h2>
-
-      <form className="form">
-        <div className="row">
-          <input type="text" placeholder="Full Name" />
-          <input type="text" placeholder="Phone Number" />
-        </div>
-        <input type="email" placeholder="Email Address" />
-        <input type="text" placeholder="Home Address" />
-        <div className="row">
-          <input type="password" placeholder="Password" />
-          <input type="password" placeholder="Confirm Password" />
-        </div>
-        <input type="date" placeholder="Date of Birth" />
-        <div className="row">
-          <input type="text" placeholder="Gender" />
-          <input type="text" placeholder="Specialty Services" />
-        </div>
-        <button type="submit" className="register-button">Register</button>
-      </form>
     </div>
   );
 };

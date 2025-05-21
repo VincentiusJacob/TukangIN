@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import LandingPage from "./pages/LandingPage";
 import ChooseRole from "./pages/ChooseRole";
-import ServicePage from "./pages/ServicePage";
+import HistoryPage from "./pages/HistoryPage";
 import RegisterTukang from "./pages/RegisterTukang";
 import Profile from "./pages/Profile";
 
@@ -19,7 +19,7 @@ function App() {
         <Route path="/chooserole" element={<ChooseRole />} />
         <Route path="/registertukang" element={<RegisterTukang />} />
         <Route path="/registercustomer" element={<RegisterCustomer />} />
-        <Route path="/service" element={<ServicePage />} />
+        <Route path="/history" element={<HistoryPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/home" element={<HomePage />} />
       </Routes>
