@@ -1,0 +1,94 @@
+.services-page-container {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.services-page-poster {
+  background-color: #e6e6e6;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.services-page-poster h1 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.services-page-content {
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.services-search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  background-color: #1e1e2f;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.services-search-bar input {
+  padding: 12px 16px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  width: 250px;
+}
+
+.services-search-bar button {
+  background: transparent;
+  color: white;
+  padding: 12px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 25px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.service-card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image-placeholder {
+  background-color: #d9d9d9;
+  height: 120px;
+}
+
+.card-body {
+  background-color: #8b2c04;
+  color: white;
+  padding: 16px;
+  text-align: center;
+}
+
+.card-body h4 {
+  margin-bottom: 12px;
+}
+
+.card-body button {
+  background-color: orange;
+  border: none;
+  padding: 8px 16px;
+  color: #222;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.card-body button:hover {
+  background-color: #ffa500;
+}

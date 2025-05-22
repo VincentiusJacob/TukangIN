@@ -5,6 +5,7 @@ import ChooseRole from "./pages/ChooseRole";
 import HistoryPage from "./pages/HistoryPage";
 import RegisterTukang from "./pages/RegisterTukang";
 import Profile from "./pages/Profile";
+import ServicesPage from "./pages/ServicesPage";
 
 import "./App.css";
 import RegisterCustomer from "./pages/RegisterCustomer";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/services" element={<ServicesPage />} />
       </Routes>
     </BrowserRouter>
   );

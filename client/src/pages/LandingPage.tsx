@@ -6,8 +6,21 @@ import SafeInsured from "../assets/safe_insured.png";
 import FastOnTime from "../assets/fast_ontime.png";
 import Footer from "../components/Footer";
 import TukangAC from "../assets/TukangAC.jpeg";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const LandingPage: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+
+  const handleBookClick = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="landing-page">
       <div className="first_section">
@@ -16,7 +29,9 @@ const LandingPage: React.FC = () => {
             <img src={Logo} alt="TukangiN Logo" />
             <h1> TukangIN </h1>
           </div>
-          <button id="bookNowHeader">Book Now</button>
+          <button id="bookNowHeader" onClick={handleBookClick}>
+            Book Now
+          </button>
         </div>
         <div className="content">
           <div className="content_text">
@@ -28,7 +43,9 @@ const LandingPage: React.FC = () => {
               {" "}
               Trusted workers for cleaning, repairs, and more - just a fan away.{" "}
             </span>
-            <button id="bookNowSectionOne">Book a Tukang now</button>
+            <button id="bookNowSectionOne" onClick={handleBookClick}>
+              Book a Tukang now
+            </button>
           </div>
           <img src={Mascot} alt="TukangIN Mascot" />
         </div>
@@ -117,6 +134,26 @@ const LandingPage: React.FC = () => {
         </div>
         <button id="explore-more-service"> Explore More </button>
       </div>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <h3>Silakan Login atau Register Terlebih Dahulu</h3>
+            <div className="modal-buttons">
+              <button onClick={() => navigate("/login")}>Login</button>
+              <button onClick={() => navigate("/registercustomer")}>
+                Register as Customer
+              </button>
+              <button onClick={() => navigate("/registertukang")}>
+                Register as Tukang
+              </button>
+            </div>
+            <button className="modal-close" onClick={closeModal}>
+              ×
+            </button>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

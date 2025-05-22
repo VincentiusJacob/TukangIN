@@ -58,7 +58,7 @@ const RegisterCustomer = () => {
           </div>
           <span style={{ marginTop: "2em" }}>
             {" "}
-            Alread have an account? <a href=""> Login</a>
+            Alread have an account? <a href="/login"> Login</a>
           </span>
         </div>
       </div>

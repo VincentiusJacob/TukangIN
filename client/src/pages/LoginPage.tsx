@@ -42,7 +42,10 @@ const LoginPage: React.FC = () => {
           </div>
           <span>
             {" "}
-            Already have an account? <a href=""> Sign up </a>{" "}
+            New to TukangIN? <a href="/registercustomer">
+              {" "}
+              Create an account{" "}
+            </a>{" "}
           </span>
         </div>
       </div>
