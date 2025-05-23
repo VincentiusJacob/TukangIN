@@ -10,6 +10,7 @@ import ServicesPage from "./pages/ServicesPage";
 import "./App.css";
 import RegisterCustomer from "./pages/RegisterCustomer";
 import HomePage from "./pages/HomePage";
+import PaymentPage from "./pages/PaymentPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/payment" element={<PaymentPage />} />
       </Routes>
     </BrowserRouter>
   );

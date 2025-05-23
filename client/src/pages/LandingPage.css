@@ -92,16 +92,16 @@
 .second_section {
   width: 100%;
   background-color: #f58c01;
-  padding: 3em 7em;
+  padding: 3em 12em;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .second_section_text {
   display: flex;
   flex-direction: column;
   gap: 2em;
+  width: 100%;
 }
 
 .second_section_text > h2 {
@@ -111,8 +111,8 @@
 
 .second_section_text > span {
   color: white;
-  font-size: 18px;
-  max-width: 50%;
+  font-size: 24px;
+  max-width: 80%;
 }
 
 #learn-more {
@@ -126,7 +126,7 @@
 .second_section > img {
   width: 500px;
   height: 500px;
-  border: 1px solid white;
+  border-radius: 10px;
 }
 
 /* ---------------- THIRD SECTION ----------------- */

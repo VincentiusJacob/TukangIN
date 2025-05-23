@@ -6,6 +6,7 @@ import SafeInsured from "../assets/safe_insured.png";
 import FastOnTime from "../assets/fast_ontime.png";
 import Footer from "../components/Footer";
 import TukangAC from "../assets/TukangAC.jpeg";
+import AboutUs from "../assets/aboutusmascot.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -71,7 +72,7 @@ const LandingPage: React.FC = () => {
           </span>
           <button id="learn-more"> Learn More </button>
         </div>
-        <img src={TukangAC} alt="TukangIN Image" />
+        <img src={AboutUs} alt="TukangIN Image" />
       </div>
 
       <div className="third_section">

@@ -1,9 +1,9 @@
+// src/routes/serviceRoute.ts
 import express from "express";
-import { getAllServices } from "../controllers/serviceController";
+import { fetchServices } from "../controllers/serviceController";
 
 const router = express.Router();
 
-// GET /api/services
-router.get("/", getAllServices);
+router.get("/services", fetchServices);
 
 export default router;
