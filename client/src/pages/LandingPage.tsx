@@ -5,13 +5,15 @@ import VerifiedWorkers from "../assets/verified_workers.png";
 import SafeInsured from "../assets/safe_insured.png";
 import FastOnTime from "../assets/fast_ontime.png";
 import Footer from "../components/Footer";
-import TukangAC from "../assets/TukangAC.jpeg";
 import AboutUs from "../assets/aboutusmascot.png";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const LandingPage: React.FC = () => {
+  const [sixServiceList, setSixServiceList] = useState<any[]>();
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const handleBookClick = () => {
@@ -21,6 +23,21 @@ const LandingPage: React.FC = () => {
   const closeModal = () => {
     setShowModal(false);
   };
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/services");
+        setSixServiceList(response.data);
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   return (
     <div className="landing-page">
@@ -70,7 +87,6 @@ const LandingPage: React.FC = () => {
             TukangIN brings dependable help to your doorstep—on time, every
             time.
           </span>
-          <button id="learn-more"> Learn More </button>
         </div>
         <img src={AboutUs} alt="TukangIN Image" />
       </div>
@@ -96,44 +112,21 @@ const LandingPage: React.FC = () => {
       <div className="fourth_section">
         <h2> Our Services </h2>
         <div className="fourth_section_services">
-          <div className="fourth_section_service">
-            <img src="" />
-            <h4> Service 1 </h4>
-            <span> Gunakan layanan kami untuk Service 1 </span>
-            <button> Read More For Details </button>
-          </div>
-          <div className="fourth_section_service">
-            <img src="" />
-            <h4> Service 1 </h4>
-            <span> Gunakan layanan kami untuk Service 1 </span>
-            <button> Read More For Details </button>
-          </div>
-          <div className="fourth_section_service">
-            <img src="" />
-            <h4> Service 1 </h4>
-            <span> Gunakan layanan kami untuk Service 1 </span>
-            <button> Read More For Details </button>
-          </div>
-          <div className="fourth_section_service">
-            <img src="" />
-            <h4> Service 1 </h4>
-            <span> Gunakan layanan kami untuk Service 1 </span>
-            <button> Read More For Details </button>
-          </div>
-          <div className="fourth_section_service">
-            <img src="" />
-            <h4> Service 1 </h4>
-            <span> Gunakan layanan kami untuk Service 1 </span>
-            <button> Read More For Details </button>
-          </div>
-          <div className="fourth_section_service">
-            <img src="" />
-            <h4> Service 1 </h4>
-            <span> Gunakan layanan kami untuk Service 1 </span>
-            <button> Read More For Details </button>
-          </div>
+          {sixServiceList &&
+            sixServiceList.slice(0, 6).map((service, index) => (
+              <div className="fourth_section_service" key={index}>
+                {/* Display the service image (assuming each service has an 'image' property) */}
+                <img src={service.image || ""} alt={service.name} />
+                <h4>{service.service_name}</h4>
+                <span>{service.description}</span>
+                <button>Read More For Details</button>
+              </div>
+            ))}
         </div>
-        <button id="explore-more-service"> Explore More </button>
+        <button id="explore-more-service" onClick={() => navigate("/services")}>
+          {" "}
+          Explore More{" "}
+        </button>
       </div>
 
       {showModal && (

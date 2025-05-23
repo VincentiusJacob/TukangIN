@@ -1,26 +1,28 @@
 .services-page-container {
-  padding: 0;
-  margin: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
   font-family: sans-serif;
 }
 
 .services-page-poster {
   background-color: #e6e6e6;
   text-align: center;
-  padding: 50px 20px;
+  padding: 4em;
 }
 
-.services-page-poster h1 {
-  font-size: 32px;
+.services-page-poster > h1 {
+  font-size: 3em;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 2;
 }
 
 .services-page-content {
-  padding: 30px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  padding: 3em;
 }
 
 .services-search-bar {
@@ -32,28 +34,26 @@
   overflow: hidden;
 }
 
-.services-search-bar input {
-  padding: 12px 16px;
+.services-search-bar > input {
+  padding: 1.2em 1.5em;
   font-size: 16px;
-  border: none;
-  outline: none;
-  width: 250px;
+  width: 400px;
+  box-shadow: 0 0 10px 20px solid rgba(0, 0, 0, 0.1);
 }
 
-.services-search-bar button {
+.services-search-bar > button {
   background: transparent;
   color: white;
-  padding: 12px 16px;
+  padding: 1em 2.5em;
   border: none;
   cursor: pointer;
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4em;
   width: 100%;
-  max-width: 900px;
 }
 
 .service-card {
@@ -71,22 +71,28 @@
 .card-body {
   background-color: #8b2c04;
   color: white;
-  padding: 16px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  align-items: center;
+  padding: 1.5em;
 }
 
 .card-body h4 {
   margin-bottom: 12px;
+  font-size: 1.5em;
+  text-align: center;
 }
 
 .card-body button {
   background-color: orange;
   border: none;
-  padding: 8px 16px;
+  padding: 1em 4em;
   color: #222;
-  border-radius: 4px;
+  border-radius: 12px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 1em;
 }
 
 .card-body button:hover {

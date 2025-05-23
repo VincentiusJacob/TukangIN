@@ -45,7 +45,7 @@ const ServicesPage: React.FC = () => {
               <div className="service-card" key={index}>
                 <div className="image-placeholder" />
                 <div className="card-body">
-                  <h4>{service.title}</h4>
+                  <h4>{service.service_name}</h4>
                   <button>Read More</button>
                 </div>
               </div>

@@ -115,14 +115,6 @@
   max-width: 80%;
 }
 
-#learn-more {
-  padding: 1em 2em;
-  color: white;
-  background: none;
-  border: 2px solid white;
-  max-width: 50%;
-}
-
 .second_section > img {
   width: 500px;
   height: 500px;
@@ -210,12 +202,17 @@
   height: 250px;
 }
 
+.fourth_section_service > h4 {
+  font-size: 1.5em;
+}
+
 .fourth_section_service > button {
   padding: 1em 3em;
   border-radius: 8px;
   background-color: maroon;
   color: white;
   border: none;
+  margin-top: 1em;
 }
 
 #explore-more-service {
