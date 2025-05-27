@@ -22,21 +22,23 @@ const RegisterCustomer = () => {
     }
 
     const newCustomer = {
-      customername: fullname,
-      customeremail: email,
-      customerphone: phone,
-      customerpw: password,
+      name: fullname,
+      phone: phone,
+      email: email,
+      password: password,
     };
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/register",
+        "http://localhost:3001/api/register/customer",
         newCustomer
       );
       const result = response.data;
+
       if (result.success) {
-        localStorage.setItem("customerid", result.customerid);
-        localStorage.setItem("customername", result.customername);
+        console.log(result);
+        localStorage.setItem("customerid", result.user.user_id);
+        localStorage.setItem("customername", result.user.name);
         navigate("/home");
       } else {
         alert("Error creating account");

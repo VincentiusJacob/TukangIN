@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import { Pool } from "pg";
 import dotenv from "dotenv";
 import cors from "cors";
-import { env } from "process";
 
 dotenv.config();
 
@@ -12,20 +11,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// DB Connection
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  ssl: { rejectUnauthorized: false },
 });
 
-// JWT Secret
-const JWT_SECRET =
-  "gGH1/XVzLFnAX981fi4ZAfOgDpBH+b1BatXiyAzU05onojeMnXXU272PjicJ19eEdcLZUscIi3NB7eyZBGSQdQ=="; // Ensure to store securely in an env variable
+const JWT_SECRET = process.env.JWT_SECRET || "";
 
-// Utility Functions
-const generateToken = (userId: string) => {
+// Utility
+const generateToken = (userId: number) => {
   return jwt.sign({ userId }, JWT_SECRET, { expiresIn: "7d" });
 };
 
@@ -41,118 +35,201 @@ const comparePassword = async (
   return bcrypt.compare(plainPassword, hashedPassword);
 };
 
-// Controllers
-const login = async (req: Request, res: Response): Promise<void> => {
-  const { email, password } = req.body;
+function catchAsync(fn: Function) {
+  return function (req: Request, res: Response, next: any) {
+    Promise.resolve(fn(req, res, next)).catch(next);
+  };
+}
 
-  try {
-    const result = await pool.query(
-      "SELECT * FROM mscustomer WHERE customeremail = $1",
-      [email]
-    );
-    const user = result.rows[0];
-
-    if (!user) {
-      res
-        .status(400)
-        .json({ success: false, message: "Invalid email or password" });
-      return; // Make sure to return here to avoid further code execution
-    }
-
-    const isMatch = await comparePassword(password, user.customerpw);
-    if (!isMatch) {
-      res
-        .status(400)
-        .json({ success: false, message: "Invalid email or password" });
-      return; // Again, return to end the function here
-    }
-
-    const token = generateToken(user.customerid);
-
-    res.json({
-      success: true,
-      message: "Login successful",
-      token,
-      user: {
-        customerid: user.customerid,
-        customername: user.customername,
-        customeremail: user.customeremail,
-        customerdob: user.customerdob,
-        customergender: user.customergender,
-        customeraddress: user.customeraddress,
-      },
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-};
-
-const fetchServices = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const servicesResult = await pool.query("SELECT * FROM ms_service");
-    const services = servicesResult.rows;
-    res.json(services);
-  } catch (error: any) {
-    console.error("Error fetching services:", error.message);
-    res
-      .status(500)
-      .json({ message: "Failed to fetch services", detail: error.message });
-  }
-};
-
-const generateCustomerId = async (): Promise<string> => {
-  const result = await pool.query(
-    "SELECT customerid FROM mscustomer ORDER BY customerid DESC LIMIT 1"
-  );
-  const lastCustomerId = result.rows[0]?.customerid || "CU000"; // If no record exists, start with CU000
-  const newCustomerIdNumber = parseInt(lastCustomerId.replace("CU", "")) + 1;
-  const newCustomerId = `CU${newCustomerIdNumber.toString().padStart(3, "0")}`;
-  return newCustomerId;
-};
-
-// Register customer API
+// Register Route (User - customer/tukang)
 app.post(
-  "/api/register",
-  async (req: Request, res: Response): Promise<void> => {
-    const { customername, customeremail, customerphone, customerpw } = req.body;
+  "/api/register/customer",
+  catchAsync(async (req: Request, res: Response) => {
+    const { name, phone, email, password } = req.body;
 
     try {
-      // Generate a new customer ID
-      const customerId = await generateCustomerId();
+      // Hash password
+      const hashedPassword = await hashPassword(password);
 
-      // Insert new customer into the database
-      const result = await pool.query(
-        "INSERT INTO mscustomer (customerid, customername, customeremail, customerphone, customerpw) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-        [customerId, customername, customeremail, customerphone, customerpw]
+      // Insert new user
+      const insertResult = await pool.query(
+        `INSERT INTO users (name, phone, email, password_hash, role)
+       VALUES ($1, $2, $3, $4, $5) RETURNING user_id, name, phone, email, role`,
+        [name, phone, email, hashedPassword, "customer"]
       );
 
-      // Respond with the result
-      const newCustomer = result.rows[0];
-      res.json({
+      const newUser = insertResult.rows[0];
+      return res.json({
         success: true,
         message: "Account created successfully!",
-        customer: {
-          customerid: newCustomer.customerid,
-          customername: newCustomer.customername,
-          customeremail: newCustomer.customeremail,
-          customerphone: newCustomer.customerphone,
-        },
+        user: newUser,
       });
-    } catch (error) {
+    } catch (error: any) {
+      if (error.code === "23505") {
+        return res
+          .status(400)
+          .json({ success: false, message: "Email already registered" });
+      }
       console.error(error);
       res
         .status(500)
         .json({ success: false, message: "Error creating account" });
     }
-  }
+  })
 );
 
-// Routes
-app.post("/api/login", login);
-app.get("/api/services", fetchServices);
+app.post(
+  "/api/register/tukang",
+  catchAsync(async (req: Request, res: Response) => {
+    const { name, phone, email, password } = req.body;
 
-// Test route
+    try {
+      // Hash password
+      const hashedPassword = await hashPassword(password);
+
+      // Insert new user
+      const insertResult = await pool.query(
+        `INSERT INTO users (name, phone, email, password_hash, role)
+       VALUES ($1, $2, $3, $4, $5) RETURNING user_id, name, phone, email, role`,
+        [name, phone, email, hashedPassword, "tukang"]
+      );
+
+      const newUser = insertResult.rows[0];
+      return res.json({
+        success: true,
+        message: "Account created successfully!",
+        user: newUser,
+      });
+    } catch (error: any) {
+      if (error.code === "23505") {
+        return res
+          .status(400)
+          .json({ success: false, message: "Email already registered" });
+      }
+      console.error(error);
+      res
+        .status(500)
+        .json({ success: false, message: "Error creating account" });
+    }
+  })
+);
+// Login Route
+app.post(
+  "/api/login",
+  catchAsync(async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+
+    try {
+      const result = await pool.query("SELECT * FROM users WHERE email = $1", [
+        email,
+      ]);
+      const user = result.rows[0];
+      if (!user) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Invalid email or password" });
+      }
+
+      const isMatch = await comparePassword(password, user.password_hash);
+      if (!isMatch) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Invalid email or password" });
+      }
+
+      const token = generateToken(user.user_id);
+
+      return res.json({
+        success: true,
+        message: "Login successful",
+        token,
+        user: {
+          user_id: user.user_id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          role: user.role,
+          dob: user.dob,
+          gender: user.gender,
+          address: user.address,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Server error" });
+    }
+  })
+);
+
+// Get User Data
+app.get(
+  "/user/:id",
+  catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+      const result = await pool.query(
+        "SELECT * FROM users WHERE user_id = $1",
+        [id]
+      );
+      const user = result.rows[0];
+      if (!user) {
+        return res
+          .status(404)
+          .json({ success: false, message: "User not found" });
+      }
+      return res.json({
+        success: true,
+        message: "User data fetched successfully",
+        user,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Server error" });
+    }
+  })
+);
+
+// Order History Route
+app.get(
+  "/order-history/:id",
+  catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+      // Join dengan tabel lain supaya data order lebih informatif
+      const result = await pool.query(
+        `SELECT o.order_id, o.order_title, o.order_date, o.duration, o.price, o.status,
+              s.service_name, s.category, t.name as tukang_name, p.payment_status
+         FROM orders o
+    LEFT JOIN services s ON o.service_id = s.service_id
+    LEFT JOIN users t ON o.tukang_id = t.user_id
+    LEFT JOIN payments p ON o.order_id = p.order_id
+        WHERE o.customer_id = $1
+        ORDER BY o.order_date DESC`,
+        [id]
+      );
+      const orders = result.rows;
+
+      if (orders.length === 0) {
+        return res
+          .status(404)
+          .json({ success: false, message: "No orders found for this user" });
+      }
+
+      return res.json({
+        success: true,
+        message: "Order history fetched successfully",
+        orders,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Server error" });
+    }
+  })
+);
+
+// Test Route
 app.get("/", (req, res) => {
   res.send("TukangIN API is running!");
 });

@@ -30,6 +30,9 @@ const LoginPage: React.FC = () => {
         });
 
         // Redirect to /home
+        console.log(response.data.user);
+        localStorage.setItem("customerid", response.data.user.customerid);
+        localStorage.setItem("customername", response.data.user.customername);
         navigate("/home");
       } else {
         setError("Invalid credentials. Please try again.");

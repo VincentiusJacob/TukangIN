@@ -8,7 +8,17 @@ import Footer from "../components/Footer";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "./HomePage.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  dob: string;
+  gender: string;
+  address: string;
+}
 
 const HomePage: React.FC = () => {
   const [selectedKebutuhan, setSelectedKebutuhan] =
@@ -18,6 +28,42 @@ const HomePage: React.FC = () => {
   const [showDomisili, setShowDomisili] = useState(false);
   const [selectedDomisiliRankTukang, setSelectedDomisiliRankTukang] =
     useState("All");
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [userOrderHistory, setUserOrderHistory] = useState<any[]>([]);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("customerid");
+    const fetchUserData = async () => {
+      if (userId) {
+        try {
+          const response = await axios.get(
+            "http://localhost:3001/user/" + userId
+          );
+          console.log(response.data);
+          setCurrentUser(response.data.user);
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    };
+
+    // const fetchOrderHistory = async () => {
+    //   if (userId) {
+    //     try {
+    //       const response = await axios.get(
+    //         `http://localhost:3001/order-history/${userId}`
+    //       );
+    //       console.log(response.data);
+    //       setUserOrderHistory(response.data.orders);
+    //     } catch (error) {
+    //       console.error("Error fetching order history:", error);
+    //     }
+    //   }
+    // }
+
+    fetchUserData();
+    // fetchOrderHistory();
+  }, []);
 
   const dummyData = [
     {
@@ -90,7 +136,8 @@ const HomePage: React.FC = () => {
           </div>
 
           <div className="homePage-header-right">
-            <h3> Hello, Prindapan </h3>
+            <h3> Hello, {currentUser?.name} </h3>
+
             {/* <img src="" id="profile-picture" alt="profile-picture" /> */}
           </div>
         </div>
@@ -225,7 +272,10 @@ const HomePage: React.FC = () => {
         <div className="order-history">
           <div className="order-history-top">
             <h2> Your Order History </h2>
-            <a> See More</a>
+            <a href="/history" style={{ cursor: "pointer" }}>
+              {" "}
+              See More
+            </a>
           </div>
           <div className="order-history-content"></div>
         </div>
