@@ -199,12 +199,17 @@ const HomePage: React.FC = () => {
 
         <div className="homePage-ads">
           <div className="homePage-ads-texts">
-            <span className="ads-title"> Promo Mei Ceria </span>
+            <span className="ads-title">
+              {" "}
+              Promo Mei <strong>Ceria!</strong>{" "}
+            </span>
             <span className="ads-description">
               {" "}
-              Dapatkan diskon hingga 60%{" "}
+              Dapatkan diskon <span className="ads-highlight">
+                hingga 60%
+              </span>{" "}
             </span>
-            <div className="slogan">
+            <div className="slogan shine-effect">
               <span>
                 {" "}
                 <span id="slogan-firstword"> Makin Hemat,</span>{" "}
@@ -216,7 +221,7 @@ const HomePage: React.FC = () => {
             className="homePage-ads-img"
             style={{
               width: "40%",
-
+              borderRadius: "10px",
               backgroundImage: `url(${Discount})`,
               backgroundSize: "cover",
             }}
@@ -228,22 +233,24 @@ const HomePage: React.FC = () => {
         <div className="order-status-live">
           {upcomingOrder ? (
             <div className="order-status-live-order">
-              <div className="order-status-live-order-detail-texts">
-                <div className="order-status-live-order-detail">
-                  <h3> Service : </h3>
-                  <span> {upcomingOrder.order_title} </span>
-                </div>
-                <div className="order-status-live-order-detail">
-                  <h3> Tanggal : </h3>
-                  <span>
-                    {dayjs(upcomingOrder.order_date).format("DD MMM YYYY")}{" "}
-                  </span>
-                </div>
-                <div className="order-status-live-order-detail">
-                  <h3> Status : </h3>
-                  <span> {upcomingOrder.status} </span>
-                </div>
-              </div>
+              <table className="order-status-table">
+                <tbody>
+                  <tr>
+                    <th>Service</th>
+                    <td>{upcomingOrder.order_title}</td>
+                  </tr>
+                  <tr>
+                    <th>Tanggal</th>
+                    <td>
+                      {dayjs(upcomingOrder.order_date).format("DD MMM YYYY")}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Status</th>
+                    <td>{upcomingOrder.status}</td>
+                  </tr>
+                </tbody>
+              </table>
               <img
                 src={WaitingIcon}
                 alt="waiting-icon"
@@ -330,16 +337,26 @@ const HomePage: React.FC = () => {
           </div>
           <div className="order-history-content">
             {userOrderHistory.length > 0 ? (
-              userOrderHistory.map((order) => {
-                return (
-                  <div className="order-history-item" key={order.id}>
-                    <h3>{order.order_title}</h3>
-                    <p> Rp {order.price}</p>
-                    <p>{dayjs(order.order_date).format("DD/MM/YYYY")}</p>
-                    <p> {order.status}</p>
-                  </div>
-                );
-              })
+              <table className="order-history-table">
+                <thead>
+                  <tr>
+                    <th>Service</th>
+                    <th>Harga</th>
+                    <th>Tanggal</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {userOrderHistory.map((order) => (
+                    <tr key={order.id}>
+                      <td>{order.order_title}</td>
+                      <td>Rp {order.price}</td>
+                      <td>{dayjs(order.order_date).format("DD/MM/YYYY")}</td>
+                      <td>{order.status}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             ) : (
               <span id="no-order-history"> You have no order history yet.</span>
             )}

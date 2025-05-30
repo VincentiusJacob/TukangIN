@@ -6,12 +6,15 @@
   gap: 3em;
 }
 
+/* * {
+  border: 1px solid red;
+} */
+
 /* Ads */
 
 .homePage-ads {
   display: flex;
   justify-content: space-between;
-  border: 1px solid;
   width: 80%;
   align-self: center;
   background-color: #f58c01;
@@ -27,13 +30,23 @@
   margin-top: 3em;
   padding: 2em 3em;
   width: 60%;
+  line-height: 0.9;
 }
 
 .ads-title {
-  font-size: 2em;
+  font-size: 4em;
   font-weight: 600;
   color: white;
   font-family: "poppins";
+  font-weight: 400;
+}
+
+.ads-title strong{
+  font-size: 1.5em;
+  font-weight: 600;
+  color: white;
+  font-family: "poppins";
+  font-style: italic;
 }
 
 .ads-description {
@@ -41,12 +54,22 @@
   font-weight: 600;
   color: white;
   font-family: "poppins";
+  margin-bottom: 5px;
+  margin-top: -15px;
+}
+
+.ads-highlight {
+  font-size: 1.5em;
+  color: #000000;
+  font-weight: bold;
 }
 
 .slogan {
-  padding: 1em 2em;
-  background-color: white;
+  display: inline-block;
+  padding: 1em;
+  background-color: rgb(255, 255, 255);
   border-radius: 8px;
+  width: 68%;
 }
 
 #slogan-firstword {
@@ -63,6 +86,41 @@
   font-weight: 600;
 }
 
+.shine-effect{
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.2) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
+}
+
+.shine-effect:hover::before{
+  animation: shine 0.75s forwards;
+}
+
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
+}
+
 /* order status live */
 
 .order-status-live {
@@ -77,9 +135,32 @@
   margin-top: 2em;
 }
 
-.order-status-live > h3 {
-  text-align: center;
-  font-size: 2em;
+.order-status-table {
+  border-collapse: collapse;
+  width: auto;
+  font-size: 1.8em;
+  margin-bottom: 1em;
+  border: 2px solid #f58c01;
+}
+
+.order-status-table th,
+.order-status-table td {
+  border: 1px solid #f58c01;
+  padding: 0.5em 1.5em;
+  text-align: left;
+}
+
+.order-status-table th {
+  background: #fff7e6;
+  color: #f58c01;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.order-status-table td {
+  color: #222;
+  font-weight: 500;
+  background: #fff;
 }
 
 /* order tukang */
@@ -139,7 +220,7 @@
 }
 
 #bookBtn {
-  background-color: #9e6012;
+  background-color: #000000;
   color: white;
   font-weight: bold;
   border: none;
@@ -150,7 +231,7 @@
 }
 
 #bookBtn:hover {
-  background-color: #7a490e;
+  background-color: #3d3d3d;
 }
 
 #dropdown-button-domisili,
@@ -201,6 +282,34 @@
   flex-direction: column;
   align-items: center;
   color: white;
+}
+
+.order-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff7e6;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 1.2em;
+}
+
+.order-history-table th,
+.order-history-table td {
+  border: 1px solid #f58c01;
+  padding: 0.7em 1.2em;
+  text-align: left;
+}
+
+.order-history-table th {
+  background: #f58c01;
+  color: white;
+  font-weight: bold;
+}
+
+.order-history-table td {
+  background: #fff;
+  color: #222;
+  font-weight: 500;
 }
 
 /* services designed around you */
