@@ -41,6 +41,11 @@
   border-radius: 20px;
   font-weight: bold;
   font-size: 16px;
+  transition: 0.2s;
+}
+
+#bookNowHeader:hover{
+  background-color: rgb(110, 110, 110);
 }
 
 /* ----------- CONTENT --------- */
@@ -66,6 +71,7 @@
 
 .content_text > h2 {
   font-size: 5em;
+  line-height: 1.05;
 }
 
 .content_text > h2 > strong {
@@ -85,6 +91,39 @@
   border-radius: 20px;
   font-weight: bold;
   font-size: 24px;
+  transition: 0.2s;
+}
+
+#bookNowSectionOne:hover {
+  background-color: #ffb553;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.trusted-caption {
+  margin-top: 1em;
+  font-size: 2em;
+  font-weight: 500;
+}
+
+.trusted-caption::after {
+  content: "|";
+  animation: blink 1s steps(1) infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
 /* ---------------- SECOND SECTION ----------------- */
@@ -106,13 +145,22 @@
 
 .second_section_text > h2 {
   font-size: 3em;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .second_section_text > span {
   color: white;
   font-size: 24px;
   max-width: 80%;
+  text-align: justify;
+  transition: 0.5s;
+  padding: 10px;
+
+  &:hover {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+  }
 }
 
 .second_section > img {
@@ -141,7 +189,7 @@
   justify-content: space-between;
   max-width: 80%;
   width: 100%;
-  margin-top: 6em;
+  margin-top: 4em;
 }
 
 .reason {
@@ -152,6 +200,11 @@
   box-shadow: 2px 5px 10px 10px rgba(0, 0, 0, 0.1);
   padding: 3.5em;
   border-radius: 10px;
+  transition: 0.4s;
+}
+
+.reason:hover {
+  scale: 1.05;
 }
 
 .reason > img {
@@ -193,8 +246,13 @@
   gap: 1em;
   background-color: white;
   color: black;
-  border-radius: 8px;
+  border-radius: 20px;
   padding: 0 0 2em 0;
+  transition: 0.3s;
+
+  &:hover {
+    scale: 1.01;
+  }
 }
 
 .fourth_section_service > img {
@@ -213,6 +271,11 @@
   color: white;
   border: none;
   margin-top: 1em;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: rgb(153, 63, 63);
+  }
 }
 
 #explore-more-service {
@@ -221,8 +284,10 @@
   align-self: center;
   background: none;
   border: 1px solid white;
+  border-radius: 12px;
   color: white;
   font-size: 1em;
+  transition: 0.4s;
 
   &:hover {
     background-color: maroon;
