@@ -6,7 +6,7 @@ import HistoryPage from "./pages/HistoryPage";
 import RegisterTukang from "./pages/RegisterTukang";
 import Profile from "./pages/Profile";
 import ServicesPage from "./pages/ServicesPage";
-
+import ServiceDetailPage from "./pages/ServiceDetailPage";
 import "./App.css";
 import RegisterCustomer from "./pages/RegisterCustomer";
 import HomePage from "./pages/HomePage";
@@ -26,6 +26,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/services/:serviceName" element={<ServiceDetailPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,7 +1,100 @@
+// PaymentPage.tsx
 import "./PaymentPage.css";
 import Card from "../assets/abstractcard.png";
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const PaymentPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const [tukang, setTukang] = useState<any>(null);
+  const [certainService, setCertainService] = useState<any>(null);
+  const [paymentMethod, setPaymentMethod] = useState<string>("");
+  const [subtotal, setSubtotal] = useState<number>(0);
+  const location = useLocation();
+  const { domisili, service, bookingDate } = location.state || {};
+
+  useEffect(() => {
+    const fetchRandomTukang = async () => {
+      try {
+        const result = await axios.get("http://localhost:3001/tukang/random");
+        if (result.data.success) {
+          setTukang(result.data.user);
+        }
+      } catch (error: any) {
+        console.log("Error fetching random tukang: ", error.message || error);
+      }
+    };
+
+    const fetchCertainService = async () => {
+      if (!service) return;
+      try {
+        const result = await axios.get(
+          `http://localhost:3001/service/search/${encodeURIComponent(service)}`
+        );
+        if (result.data.success) {
+          setCertainService(result.data.service);
+          const durationHours = result.data.service.duration_minutes / 60;
+          const subtotalPrice =
+            durationHours * result.data.service.price_per_hour;
+          setSubtotal(subtotalPrice);
+        }
+      } catch (error: any) {
+        console.log("Error fetching service: ", error.message || error);
+      }
+    };
+
+    fetchRandomTukang();
+    fetchCertainService();
+  }, [service]);
+
+  const handlePayment = async () => {
+    if (!tukang || !certainService || !paymentMethod)
+      return alert("Lengkapi semua data!");
+
+    try {
+      const userId = localStorage.getItem("customerid");
+
+      const orderResult = await axios.post("http://localhost:3001/order", {
+        user_id: userId,
+        tukang_id: tukang.user_id,
+        service_id: certainService.service_id,
+        booking_date: bookingDate,
+        duration_minutes: certainService.duration_minutes,
+        subtotal,
+        service_name: certainService.service_name,
+      });
+
+      const order_id = orderResult.data.order_id;
+
+      await axios.post("http://localhost:3001/payment", {
+        order_id,
+        method: paymentMethod,
+        amount: subtotal + 10000,
+      });
+
+      Swal.fire({
+        title: "Berhasil!",
+        text: "Pembayaran berhasil diproses!",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        navigate("/home");
+      });
+    } catch (error: any) {
+      console.error("Payment error: ", error);
+      Swal.fire({
+        title: "Gagal!",
+        text: "Terjadi kesalahan saat memproses pembayaran.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+
   return (
     <div className="payment-page">
       <div className="payment-card">
@@ -20,6 +113,32 @@ const PaymentPage: React.FC = () => {
         </div>
         <div className="payment-card-right">
           <h2> Payment Details</h2>
+          <div className="payment-card-right-description">
+            <div className="payment-card-right-description-left">
+              <div className="description-payment">
+                <strong> Tukang: </strong>
+                <span>{tukang?.name || "-"}</span>
+              </div>
+              <div className="description-payment">
+                <strong>Service: </strong>
+                <span> {certainService?.service_name || service || "-"}</span>
+              </div>
+              <div className="description-payment">
+                <strong> Date: </strong>
+                <span> {bookingDate || "-"}</span>
+              </div>
+            </div>
+            <div className="payment-card-right-description-right">
+              <div className="description-payment">
+                <strong> Domisili: </strong>
+                <span> {domisili || "-"}</span>
+              </div>
+              <div className="description-payment">
+                <strong> Duration: </strong>
+                <span> {certainService?.duration_minutes || "-"} menit</span>
+              </div>
+            </div>
+          </div>
           <span> Complete your purchase by providing the payment details</span>
           <div className="payment-card-right-form">
             <div className="payment-field">
@@ -34,20 +153,22 @@ const PaymentPage: React.FC = () => {
 
             <div className="payment-field">
               <label>Metode Pembayaran</label>
-              <select>
+              <select
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                value={paymentMethod}
+              >
                 <option value="">-- Pilih Metode Pembayaran --</option>
-                <option value="bca_va">BCA Virtual Account</option>
-                <option value="ovo">OVO</option>
-                <option value="gopay">GoPay</option>
-                <option value="dana">DANA</option>
-                <option value="bank_transfer">Transfer Bank Manual</option>
+                <option value="BCA Virtual Account">BCA Virtual Account</option>
+                <option value="OVO">OVO</option>
+                <option value="Gopay">GoPay</option>
+                <option value="Dana">DANA</option>
               </select>
             </div>
           </div>
           <div className="payment-summary">
             <div className="summary-item">
               <span> Subtotal </span>
-              <strong> Rp 200.000</strong>
+              <strong> Rp {subtotal.toLocaleString("id-ID")}</strong>
             </div>
             <div className="summary-item">
               <span> Tax </span>
@@ -55,17 +176,19 @@ const PaymentPage: React.FC = () => {
             </div>
             <div className="summary-item">
               <span> Method </span>
-              <strong> BCA Virtual Account </strong>
+              <strong> {paymentMethod || "-"} </strong>
             </div>
             <div className="summary-item">
               <span>
-                {" "}
                 <strong> Total </strong>
               </span>
-              <strong> Rp 210.000 </strong>
+              <strong> Rp {(subtotal + 10000).toLocaleString("id-ID")} </strong>
             </div>
           </div>
-          <button id="pay-btn"> Pay </button>
+          <button id="pay-btn" onClick={handlePayment}>
+            {" "}
+            Pay{" "}
+          </button>
         </div>
       </div>
     </div>

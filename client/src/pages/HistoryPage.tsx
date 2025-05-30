@@ -11,6 +11,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import Header from "../components/Header";
 
 const HistoryPage = () => {
   const dummyHistory = [
@@ -126,18 +127,7 @@ const HistoryPage = () => {
 
   return (
     <div className="history-page">
-      <div className="history-header">
-        <div className="history-header-left">
-          <img src={Logo} id="logo" alt="TukangIN Logo" />
-          <h1> TukangIN </h1>
-          <div className="searchBar-container">
-            <input type="text" id="search-field" placeholder="Search" />
-          </div>
-        </div>
-        <div className="history-header-right">
-          <h3>Hello, Prindapan</h3>
-        </div>
-      </div>
+      <Header />
 
       {/* Total Pengeluaran */}
       <div className="total-spent">

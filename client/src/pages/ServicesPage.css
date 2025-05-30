@@ -12,9 +12,10 @@
 }
 
 .services-page-poster > h1 {
-  font-size: 3em;
+  font-size: 4em;
   font-weight: 700;
   line-height: 2;
+  color: white;
 }
 
 .services-page-content {

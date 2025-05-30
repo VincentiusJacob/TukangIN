@@ -41,6 +41,46 @@ function catchAsync(fn: Function) {
   };
 }
 
+app.get(
+  "/api/services",
+  catchAsync(async (req: Request, res: Response) => {
+    try {
+      const result = await pool.query("SELECT * FROM services");
+      return res.json({
+        success: true,
+        message: "Services fetched successfully",
+        services: result.rows,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Server error" });
+    }
+  })
+);
+
+// Route: /services/by-location?city=Jakarta
+app.get(
+  "/services/by-location",
+  catchAsync(async (req: Request, res: Response) => {
+    const { city } = req.query;
+
+    if (!city) {
+      return res.status(400).json({ error: "City parameter is required" });
+    }
+
+    try {
+      const result = await pool.query(
+        "SELECT * FROM services WHERE location_coverage ILIKE $1",
+        [city]
+      );
+      res.json(result.rows);
+    } catch (err) {
+      console.error("Error fetching services by location:", err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  })
+);
+
 // Register Route (User - customer/tukang)
 app.post(
   "/api/register/customer",
@@ -225,6 +265,180 @@ app.get(
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false, message: "Server error" });
+    }
+  })
+);
+
+//GET RANDOM USER
+app.get(
+  "/tukang/random",
+  catchAsync(async (req: Request, res: Response) => {
+    try {
+      const result = await pool.query(
+        `SELECT user_id, name FROM users WHERE role = 'tukang' ORDER BY RANDOM() LIMIT 1`
+      );
+
+      if (result.rows.length === 0) {
+        return res
+          .status(404)
+          .json({ success: false, message: "No tukang found" });
+      }
+
+      return res.json({
+        success: true,
+        message: "Random tukang fetched successfully",
+        user: result.rows[0],
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Server error" });
+    }
+  })
+);
+
+app.get(
+  "/service/search/:name",
+  catchAsync(async (req: Request, res: Response) => {
+    const { name } = req.params;
+    try {
+      const result = await pool.query(
+        `SELECT * FROM services WHERE service_name ILIKE '%' || $1 || '%' LIMIT 1`,
+        [name]
+      );
+
+      if (result.rows.length === 0) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Service not found" });
+      }
+
+      return res.json({
+        success: true,
+        message: "Service fetched successfully",
+        service: result.rows[0],
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Server error" });
+    }
+  })
+);
+
+app.post(
+  "/order",
+  catchAsync(async (req: Request, res: Response) => {
+    const client = await pool.connect();
+    try {
+      const {
+        user_id,
+        tukang_id,
+        service_id,
+        booking_date,
+        duration_minutes,
+        subtotal,
+        service_name,
+      } = req.body;
+
+      const currentDate = new Date();
+
+      const orderResult = await client.query(
+        `INSERT INTO orders (customer_id, tukang_id, service_id, order_date, duration, price, status, order_title)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+         RETURNING order_id`,
+        [
+          user_id,
+          tukang_id,
+          service_id,
+          booking_date,
+          duration_minutes,
+          subtotal,
+          booking_date > currentDate ? "Pending" : "Completed",
+          service_name,
+        ]
+      );
+
+      res.json({
+        success: true,
+        message: "Order is processed",
+        order_id: orderResult.rows[0].order_id,
+      });
+    } catch (error) {
+      console.error("Order process went wrong: ", error);
+      res.status(500).json({
+        success: false,
+      });
+    } finally {
+      client.release();
+    }
+  })
+);
+
+app.post(
+  "/payment",
+  catchAsync(async (req: Request, res: Response) => {
+    const client = await pool.connect();
+    const { order_id, method, amount } = req.body;
+    const currentDate = new Date();
+
+    try {
+      const orderResult = await client.query(
+        `INSERT INTO payments (order_id, payment_date, payment_method, payment_price, payment_status)
+         VALUES ($1, $2, $3, $4, $5)
+         RETURNING order_id`,
+        [order_id, currentDate, method, amount, "Completed"]
+      );
+
+      res.json({
+        success: true,
+        message: "Payment successful",
+      });
+    } catch (error) {
+      console.error("Payment process failed: ", error);
+
+      // Simpan data gagal ke dalam DB dengan status "Cancelled"
+      try {
+        await client.query(
+          `INSERT INTO payments (order_id, payment_date, payment_method, payment_price, payment_status)
+           VALUES ($1, $2, $3, $4, $5)`,
+          [order_id, currentDate, method, amount, "Cancelled"]
+        );
+      } catch (cancelError) {
+        console.error("Failed to record cancelled payment:", cancelError);
+      }
+
+      res.status(500).json({
+        success: false,
+        message: "Payment failed, status set to Cancelled",
+      });
+    } finally {
+      client.release();
+    }
+  })
+);
+
+app.get(
+  "/service/search/:name",
+  catchAsync(async (req: Request, res: Response) => {
+    const { name } = req.params;
+    try {
+      const result = await pool.query(
+        `SELECT * FROM services WHERE service_name ILIKE $1 LIMIT 1`,
+        [`%${name}%`]
+      );
+
+      if (result.rows.length === 0) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Layanan tidak ditemukan." });
+      }
+
+      res.json({ success: true, service: result.rows[0] });
+    } catch (error) {
+      console.error("Error saat mencari layanan:", error);
+      res.status(500).json({
+        success: false,
+        message: "Terjadi kesalahan saat mencari layanan.",
+      });
     }
   })
 );

@@ -41,7 +41,7 @@
 }
 
 .payment-card-right-form {
-  margin-top: 2em;
+  margin-top: 1em;
   display: flex;
   flex-direction: column;
   gap: 2em;
@@ -87,4 +87,22 @@
   border-radius: 12px;
   border: none;
   font-size: 1.2em;
+}
+
+.payment-card-right-description {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+}
+.payment-card-right-description-right,
+.payment-card-right-description-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.description-payment {
+  display: flex;
+  align-items: center;
+  gap: 1em;
 }

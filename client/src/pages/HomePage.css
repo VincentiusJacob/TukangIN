@@ -6,47 +6,6 @@
   gap: 3em;
 }
 
-/* HEADER */
-.homePage-header {
-  display: flex;
-  padding: 1em 3em;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 4px 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.homePage-header-left {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.homePage-header-left > h1 {
-  color: #f58c01;
-  font-size: 2.5em;
-}
-
-.searchBar-container {
-  margin-left: 5em;
-}
-
-#search-field {
-  background-color: grey;
-  color: black;
-  padding: 1em 8em 1em 2em;
-  border-radius: 8px;
-}
-
-.homePage-header > img {
-  border: 1px solid;
-}
-
-.homePage-header-right {
-  display: flex;
-  align-items: center;
-  gap: 2em;
-}
-
 /* Ads */
 
 .homePage-ads {
@@ -56,8 +15,9 @@
   width: 80%;
   align-self: center;
   background-color: #f58c01;
-  padding: 2em 3em;
   border-radius: 8px;
+  gap: 4em;
+  padding: 2em;
 }
 
 .homePage-ads-texts {
@@ -65,6 +25,8 @@
   flex-direction: column;
   gap: 1em;
   margin-top: 3em;
+  padding: 2em 3em;
+  width: 60%;
 }
 
 .ads-title {
@@ -108,8 +70,8 @@
   flex-direction: column;
   padding: 5em 7em;
   width: 80%;
-  border-radius: 8px;
-  background-color: #f3f0f0;
+  border-radius: 16px;
+  border: 3px solid #f58c01;
   color: black;
   align-self: center;
   margin-top: 2em;
@@ -162,6 +124,11 @@
   width: max-content;
 }
 
+.dropdown-menu {
+  z-index: 9999;
+  margin-top: 0.5em !important;
+}
+
 .dropdown-menu > a {
   text-decoration: none;
   color: black;
@@ -188,8 +155,18 @@
 
 #dropdown-button-domisili,
 #dropdown-button-kebutuhan {
-  background: none;
-  border: none;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 0.75em 1em;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+}
+
+#dropdown-button-domisili:hover,
+#dropdown-button-kebutuhan:hover {
+  background-color: #f5f5f5;
 }
 
 /* order history */
@@ -216,10 +193,14 @@
 
 .order-history-content {
   height: 300px; /* sementara */
-  padding: 1em;
+
   width: 100%;
-  background-color: #848282;
+  background-color: #f58c01;
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
 }
 
 /* services designed around you */
@@ -252,31 +233,30 @@
 
 .services-designed-sample {
   display: flex;
-  background-color: #848282;
-  height: 200px;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: black;
+  background-color: #f58c01;
+  border-radius: 8px;
 }
 
-/* popular service this week */
+.service-image {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
 
-.popular-services-this-week {
+.service-description {
   display: flex;
   flex-direction: column;
-  gap: 2em;
-  margin-top: 2em;
-  width: 80%;
-  align-self: center;
+  padding: 2em;
+  text-align: center;
+  gap: 1em;
+  color: white;
 }
 
-.popular-services {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2em;
-}
-
-.popular-service {
-  display: flex;
-  background-color: #848282;
-  height: 200px;
+.service-description > h3 {
+  font-size: 24px;
 }
 
 /* Best Overall Tukang */
@@ -355,4 +335,40 @@
   background-color: #fffbe6;
   font-weight: bold;
   border-left: 4px solid gold;
+}
+
+#no-order-history {
+  font-weight: 700;
+  font-size: 24px;
+  color: white;
+}
+
+.order-history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2em 3em;
+  border-bottom: 3px solid white;
+  font-weight: 700;
+}
+
+.order-status-live-order {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5em;
+}
+
+.order-status-live-order-detail-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.order-status-live-order-detail {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  font-size: 28px;
 }

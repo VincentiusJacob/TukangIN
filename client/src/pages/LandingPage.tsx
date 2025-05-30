@@ -28,7 +28,8 @@ const LandingPage: React.FC = () => {
     const fetchServices = async () => {
       try {
         const response = await axios.get("http://localhost:3001/api/services");
-        setSixServiceList(response.data);
+        console.log(response.data);
+        setSixServiceList(response.data.services);
       } catch (error) {
         console.error("Error fetching services:", error);
       } finally {
