@@ -38,9 +38,9 @@ const RegisterTukang = () => {
 
       if (result.success) {
         console.log(result);
-        localStorage.setItem("customerid", result.user.user_id);
-        localStorage.setItem("customername", result.user.name);
-        navigate("/home");
+        localStorage.setItem("tukangid", result.user.user_id);
+        localStorage.setItem("tukangname", result.user.name);
+        navigate("/tukang/home");
       } else {
         alert("Error creating account");
       }

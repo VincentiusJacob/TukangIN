@@ -112,17 +112,17 @@ const HomePage: React.FC = () => {
   const getNearestUpcomingOrder = (orders: any[]) => {
     const today = dayjs().startOf("day");
 
-    const upcomingOrders = orders
+    const pendingOrders = orders
       .filter(
         (order) =>
-          order.status.toLowerCase() !== "complete" &&
+          order.status.toLowerCase() === "pending" &&
           dayjs(order.order_date).isAfter(today)
       )
       .sort(
         (a, b) => dayjs(a.order_date).valueOf() - dayjs(b.order_date).valueOf()
       );
 
-    return upcomingOrders.length > 0 ? upcomingOrders[0] : null;
+    return pendingOrders.length > 0 ? pendingOrders[0] : null;
   };
 
   const domisiliOptions = [
@@ -134,64 +134,6 @@ const HomePage: React.FC = () => {
     { value: "Bekasi", label: "Bekasi" },
   ];
 
-  const dummyData = [
-    {
-      id: 1,
-      nama: "Budi Santoso",
-      rating: 4.9,
-      selesai: 124,
-      domisili: "Jakarta",
-    },
-    {
-      id: 2,
-      nama: "Agus Wijaya",
-      rating: 4.8,
-      selesai: 117,
-      domisili: "Bandung",
-    },
-    {
-      id: 3,
-      nama: "Rahmat Hidayat",
-      rating: 4.7,
-      selesai: 109,
-      domisili: "Surabaya",
-    },
-    {
-      id: 4,
-      nama: "Joko Prasetyo",
-      rating: 4.6,
-      selesai: 96,
-      domisili: "Bekasi",
-    },
-    {
-      id: 5,
-      nama: "Toni Saputra",
-      rating: 4.5,
-      selesai: 89,
-      domisili: "Denpasar",
-    },
-    {
-      id: 6,
-      nama: "Timothy Ronald",
-      rating: 4.3,
-      selesai: 70,
-      domisili: "Jakarta",
-    },
-  ];
-
-  const filteredData =
-    selectedDomisiliRankTukang === "All"
-      ? dummyData
-      : dummyData.filter(
-          (item) => item.domisili === selectedDomisiliRankTukang
-        );
-
-  const sortedData = [...filteredData].sort((a, b) => b.rating - a.rating);
-
-  const uniqueDomisili = [
-    "All",
-    ...new Set(dummyData.map((item) => item.domisili)),
-  ];
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className="homePage">
@@ -225,9 +167,7 @@ const HomePage: React.FC = () => {
               backgroundImage: `url(${Discount})`,
               backgroundSize: "cover",
             }}
-          >
-            {/* <img src="" /> */}
-          </div>
+          ></div>
         </div>
 
         <div className="order-status-live">
@@ -260,7 +200,7 @@ const HomePage: React.FC = () => {
             </div>
           ) : (
             <div className="order-status-live-order-unactive">
-              <h3> You have no order... </h3>
+              <h3> You have no pending order... </h3>
             </div>
           )}
         </div>
@@ -269,7 +209,6 @@ const HomePage: React.FC = () => {
           <h2>Pesan Tukang</h2>
 
           <div className="order-tukang-fields">
-            {/* Domisili Dropdown */}
             <div className="dropdown">
               <Select
                 placeholder="Pilih Domisili"
@@ -283,7 +222,6 @@ const HomePage: React.FC = () => {
               />
             </div>
 
-            {/* Kebutuhan Dropdown */}
             <div className="dropdown">
               <Select
                 placeholder="Apa Kebutuhanmu?"
@@ -298,7 +236,6 @@ const HomePage: React.FC = () => {
               />
             </div>
 
-            {/* Tanggal Booking */}
             <div>
               <DemoItem label="">
                 <DesktopDatePicker
@@ -320,7 +257,6 @@ const HomePage: React.FC = () => {
               </DemoItem>
             </div>
 
-            {/* Tombol Book */}
             <button id="bookBtn" onClick={handleBook}>
               Book
             </button>
@@ -329,7 +265,7 @@ const HomePage: React.FC = () => {
 
         <div className="order-history">
           <div className="order-history-top">
-            <h2> Your Order History </h2>
+            <h2> Riwayat Order </h2>
             <a href="/history" style={{ cursor: "pointer" }}>
               {" "}
               See More
@@ -341,8 +277,8 @@ const HomePage: React.FC = () => {
                 <thead>
                   <tr>
                     <th>Service</th>
-                    <th>Harga</th>
-                    <th>Tanggal</th>
+                    <th>Price</th>
+                    <th>Date</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -352,7 +288,13 @@ const HomePage: React.FC = () => {
                       <td>{order.order_title}</td>
                       <td>Rp {order.price}</td>
                       <td>{dayjs(order.order_date).format("DD/MM/YYYY")}</td>
-                      <td>{order.status}</td>
+                      <td>
+                        {dayjs(order.order_date)
+                          .startOf("day")
+                          .isAfter(dayjs().startOf("day"))
+                          ? "On Process"
+                          : "Completed"}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -395,47 +337,6 @@ const HomePage: React.FC = () => {
                 })
               : "No services available at the moment."}
           </div>
-        </div>
-
-        <div className="best-overall-tukang">
-          <h2>🏆 Best Overall Tukang</h2>
-
-          <div className="ranking-controls">
-            <label>Filter Domisili:</label>
-            <select
-              onChange={(e) => setSelectedDomisiliRankTukang(e.target.value)}
-              value={selectedDomisiliRankTukang}
-            >
-              {uniqueDomisili.map((d, i) => (
-                <option key={i} value={d}>
-                  {d}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <table className="ranking-table">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Nama</th>
-                <th>Rating ⭐</th>
-                <th>Pekerjaan Selesai</th>
-                <th>Domisili</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedData.slice(0, 10).map((item, index) => (
-                <tr key={item.id} className={index === 0 ? "first-place" : ""}>
-                  <td>{index + 1}</td>
-                  <td>{item.nama}</td>
-                  <td>{item.rating}</td>
-                  <td>{item.selesai}</td>
-                  <td>{item.domisili}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
 
         <Footer />

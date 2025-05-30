@@ -1,0 +1,65 @@
+.claim-order-page {
+  display: flex;
+  height: 100vh;
+}
+
+.claim-order-page {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.claim-page {
+  padding: 2rem;
+  width: 100%;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 2em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 3em;
+}
+
+th,
+td {
+  padding: 1rem;
+  text-align: left;
+}
+
+thead {
+  background-color: #005aab;
+  color: white;
+}
+
+tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  transition: background 0.3s ease;
+}
+
+tbody tr:hover {
+  background-color: #f1faff;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

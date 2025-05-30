@@ -1,4 +1,3 @@
-// PaymentPage.tsx
 import "./PaymentPage.css";
 import Card from "../assets/abstractcard.png";
 import { useLocation } from "react-router-dom";
@@ -9,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 const PaymentPage: React.FC = () => {
   const navigate = useNavigate();
-
-  const [tukang, setTukang] = useState<any>(null);
   const [certainService, setCertainService] = useState<any>(null);
   const [paymentMethod, setPaymentMethod] = useState<string>("");
   const [subtotal, setSubtotal] = useState<number>(0);
@@ -18,17 +15,6 @@ const PaymentPage: React.FC = () => {
   const { domisili, service, bookingDate } = location.state || {};
 
   useEffect(() => {
-    const fetchRandomTukang = async () => {
-      try {
-        const result = await axios.get("http://localhost:3001/tukang/random");
-        if (result.data.success) {
-          setTukang(result.data.user);
-        }
-      } catch (error: any) {
-        console.log("Error fetching random tukang: ", error.message || error);
-      }
-    };
-
     const fetchCertainService = async () => {
       if (!service) return;
       try {
@@ -47,20 +33,17 @@ const PaymentPage: React.FC = () => {
       }
     };
 
-    fetchRandomTukang();
     fetchCertainService();
   }, [service]);
 
   const handlePayment = async () => {
-    if (!tukang || !certainService || !paymentMethod)
-      return alert("Lengkapi semua data!");
+    if (!certainService || !paymentMethod) return alert("Lengkapi semua data!");
 
     try {
       const userId = localStorage.getItem("customerid");
 
       const orderResult = await axios.post("http://localhost:3001/order", {
         user_id: userId,
-        tukang_id: tukang.user_id,
         service_id: certainService.service_id,
         booking_date: bookingDate,
         duration_minutes: certainService.duration_minutes,
@@ -78,7 +61,7 @@ const PaymentPage: React.FC = () => {
 
       Swal.fire({
         title: "Berhasil!",
-        text: "Pembayaran berhasil diproses!",
+        text: "Order Anda sedang menunggu tukang yang sesuai.",
         icon: "success",
         confirmButtonText: "OK",
       }).then(() => {
@@ -115,10 +98,10 @@ const PaymentPage: React.FC = () => {
           <h2> Payment Details</h2>
           <div className="payment-card-right-description">
             <div className="payment-card-right-description-left">
-              <div className="description-payment">
+              {/* <div className="description-payment">
                 <strong> Tukang: </strong>
-                <span>{tukang?.name || "-"}</span>
-              </div>
+                <span></span>
+              </div> */}
               <div className="description-payment">
                 <strong>Service: </strong>
                 <span> {certainService?.service_name || service || "-"}</span>

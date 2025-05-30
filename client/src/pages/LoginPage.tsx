@@ -12,18 +12,15 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      // Send the login request to the backend
       const response = await axios.post("http://localhost:3001/api/login", {
         email,
         password,
       });
 
-      // If login is successful, save credentials in cookies and redirect to /home
       if (response.data.success) {
         Cookies.set("userCredentials", JSON.stringify(response.data.user), {
           expires: 7, // expires in 7 days
@@ -31,9 +28,19 @@ const LoginPage: React.FC = () => {
 
         // Redirect to /home
         console.log(response.data.user);
-        localStorage.setItem("customerid", response.data.user.user_id);
-        localStorage.setItem("customername", response.data.user.name);
-        navigate("/home");
+        if (response.data.user.role === "tukang") {
+          localStorage.setItem("tukangid", response.data.user.user_id);
+          localStorage.setItem("tukangname", response.data.user.name);
+        } else {
+          localStorage.setItem("customerid", response.data.user.user_id);
+          localStorage.setItem("customername", response.data.user.name);
+        }
+
+        if (response.data.user.role === "tukang") {
+          navigate("/tukang/home");
+        } else {
+          navigate("/home");
+        }
       } else {
         setError("Invalid credentials. Please try again.");
       }

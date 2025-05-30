@@ -54,8 +54,6 @@ const Header: React.FC = () => {
       </div>
       <div className="homePage-header-right">
         <h3> Hello, {currentUser?.name} </h3>
-
-        {/* <img src="" id="profile-picture" alt="profile-picture" /> */}
       </div>
     </div>
   );

@@ -144,7 +144,7 @@ const LandingPage: React.FC = () => {
           {sixServiceList &&
             sixServiceList.slice(0, 6).map((service, index) => (
               <div className="fourth_section_service" key={index}>
-                <img src={service.image || ""} alt={service.name} />
+                <img src={service.image_url || ""} alt={service.name} />
                 <h4>{service.service_name}</h4>
                 <span>{service.description}</span>
                 <button>Read More For Details</button>

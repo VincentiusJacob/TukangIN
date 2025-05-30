@@ -1,0 +1,63 @@
+.orders-page-tukang {
+  display: flex;
+  height: 100vh;
+}
+
+.orders-tukang-page {
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  width: 100%;
+}
+
+.orders-tukang-list {
+  width: 100%;
+}
+
+.orders-tukang-page h1 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 2em;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.orders-table th,
+.orders-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.orders-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-weight: bold;
+}
