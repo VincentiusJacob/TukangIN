@@ -16,7 +16,7 @@ const LandingPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const handleBookClick = () => {
+  const handleAuthClick = () => {
     setShowModal(true);
   };
 
@@ -73,7 +73,7 @@ const LandingPage: React.FC = () => {
             <img src={Logo} alt="TukangiN Logo" />
             <h1> TukangIN </h1>
           </div>
-          <button id="bookNowHeader" onClick={handleBookClick}>
+          <button id="bookNowHeader" onClick={handleAuthClick}>
             Book Now
           </button>
         </div>
@@ -90,7 +90,7 @@ const LandingPage: React.FC = () => {
               {showTukangIn && <span className="fade-in"> Aja!</span>}
             </h2>
             <div className="trusted-caption">{typedTrusted}</div>
-            <button id="bookNowSectionOne" onClick={handleBookClick}>
+            <button id="bookNowSectionOne" onClick={handleAuthClick}>
               Book a Tukang now
             </button>
           </div>
@@ -151,7 +151,7 @@ const LandingPage: React.FC = () => {
               </div>
             ))}
         </div>
-        <button id="explore-more-service" onClick={() => navigate("/services")}>
+        <button id="explore-more-service" onClick={handleAuthClick}>
           {" "}
           Explore More{" "}
         </button>
